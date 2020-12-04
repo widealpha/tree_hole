@@ -6,6 +6,42 @@ public class User {
     String nickname;
     String motto;
     String headImage;
+    String likeArticles;
+    String disLikeArticles;
+    String likeComments;
+    String disLikeComments;
+
+    public String getLikeArticles() {
+        return likeArticles;
+    }
+
+    public void setLikeArticles(String likeArticles) {
+        this.likeArticles = likeArticles;
+    }
+
+    public String getDisLikeArticles() {
+        return disLikeArticles;
+    }
+
+    public void setDisLikeArticles(String disLikeArticles) {
+        this.disLikeArticles = disLikeArticles;
+    }
+
+    public String getLikeComments() {
+        return likeComments;
+    }
+
+    public void setLikeComments(String likeComments) {
+        this.likeComments = likeComments;
+    }
+
+    public String getDisLikeComments() {
+        return disLikeComments;
+    }
+
+    public void setDisLikeComments(String disLikeComments) {
+        this.disLikeComments = disLikeComments;
+    }
 
     public Integer getId() {
         return id;

@@ -4,3 +4,11 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/tree_hole?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     username: root
     password: '%Kmh123456'
+  servlet:
+    multipart:
+      max-file-size: 16MB
+      max-request-size: 20MB
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

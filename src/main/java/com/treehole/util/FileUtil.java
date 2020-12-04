@@ -13,7 +13,7 @@ public class FileUtil {
 
     @SuppressWarnings("all")
     public static String saveImage(MultipartFile multipartFile, @Nullable String use){
-        if (multipartFile == null || multipartFile.isEmpty()){
+        if (multipartFile == null){
             return null;
         }
         String fileName = generatorFilename(null, "jpg");

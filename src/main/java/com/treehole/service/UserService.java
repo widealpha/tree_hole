@@ -82,10 +82,11 @@ public class UserService {
 
     public Result updateUserInfo(User user, MultipartFile image) {
         User origin = userDao.getUserById(user.getId());
-        if (image == null || image.isEmpty()){
+        if (image == null){
             user.setHeadImage(origin.getHeadImage());
         } else {
-            user.setHeadImage(FileUtil.saveImage(image, "treehole"));
+            String path = FileUtil.saveImage(image, "treehole");
+            user.setHeadImage(path);
         }
         if (user.getNickname() == null){
             user.setNickname(origin.getNickname());
@@ -94,7 +95,7 @@ public class UserService {
             user.setMotto(origin.getMotto());
         }
         if (userDao.updateUser(user) > 0) {
-            return getUserInfo(origin.getId());
+            return getUserInfo(user.getId());
         } else {
             return Result.error("更新失败");
         }
@@ -120,5 +121,61 @@ public class UserService {
 
     public Result getUserList() {
         return Result.data(userDao.allUser());
+    }
+
+    public Result searchUserByName(String username){
+        return Result.data(userDao.searchUserByName(username));
+    }
+
+    public Result getLikeArticles(Integer userId){
+        return Result.data(userDao.getLikeArticles(userId));
+    }
+
+    public Result setLikeArticles(Integer userId, String likeList){
+        int id =  userDao.setLikeArticles(userId, likeList);
+        if (id > 0){
+            return getLikeArticles(userId);
+        } else {
+            return Result.error("修改失败");
+        }
+    }
+
+    public Result getDislikeArticles(Integer userId){
+        return Result.data(userDao.getDislikeArticles(userId));
+    }
+
+    public Result setDislikeArticles(Integer userId, String dislikeList){
+        int id =  userDao.setLikeArticles(userId, dislikeList);
+        if (id > 0){
+            return getDislikeArticles(userId);
+        } else {
+            return Result.error("修改失败");
+        }
+    }
+
+    public Result getLikeComments(Integer userId){
+        return Result.data(userDao.getLikeComments(userId));
+    }
+
+    public Result setLikeComments(Integer userId, String likeList){
+        int id =  userDao.setLikeComments(userId, likeList);
+        if (id > 0){
+            return getLikeComments(userId);
+        } else {
+            return Result.error("修改失败");
+        }
+    }
+
+    public Result getDislikeComments(Integer userId){
+        return Result.data(userDao.getDislikeComments(userId));
+    }
+
+    public Result setDislikeComments(Integer userId, String dislikeList){
+        int id =  userDao.setLikeComments(userId, dislikeList);
+        if (id > 0){
+            return getDislikeComments(userId);
+        } else {
+            return Result.error("修改失败");
+        }
     }
 }

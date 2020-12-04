@@ -23,7 +23,7 @@ public class AuthConfiguration implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/user/login")
                 .excludePathPatterns("/user/register")
-                .excludePathPatterns("/article/**");
+                .excludePathPatterns("/article/allArticles");
     }
     @Bean
     public FilterRegistrationBean<AuthFilter> paramFilter(){

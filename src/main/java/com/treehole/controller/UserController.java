@@ -69,4 +69,48 @@ public class UserController {
         return userService.deleteUser(userId, deleteUserId);
     }
 
+    @RequestMapping(value = "searchUser", method = RequestMethod.POST)
+    Result searchUser(@RequestParam int userId, @RequestParam String username){
+        return userService.searchUserByName(username);
+    }
+
+    @RequestMapping(value = "likeArticles", method = RequestMethod.POST)
+    Result likeArticles(@RequestParam int userId){
+        return userService.getLikeArticles(userId);
+    }
+
+    @RequestMapping(value = "dislikeArticles", method = RequestMethod.POST)
+    Result disLikeArticles(@RequestParam int userId){
+        return userService.getDislikeArticles(userId);
+    }
+
+    @RequestMapping(value = "updateLikeArticles", method = RequestMethod.POST)
+    Result updateLikeArticles(@RequestParam int userId, @RequestParam String likeArticles){
+        return userService.setLikeArticles(userId, likeArticles);
+    }
+
+    @RequestMapping(value = "updateDislikeArticles", method = RequestMethod.POST)
+    Result updateDisLikeArticles(@RequestParam int userId, @RequestParam String dislikeArticles){
+        return userService.setDislikeArticles(userId, dislikeArticles);
+    }
+
+    @RequestMapping(value = "likeComments", method = RequestMethod.POST)
+    Result likeComments(@RequestParam int userId){
+        return userService.getLikeComments(userId);
+    }
+
+    @RequestMapping(value = "dislikeComments", method = RequestMethod.POST)
+    Result disLikeComments(@RequestParam int userId){
+        return userService.getDislikeComments(userId);
+    }
+
+    @RequestMapping(value = "updateLikeComments", method = RequestMethod.POST)
+    Result updateLikeComments(@RequestParam int userId, @RequestParam String likeComments){
+        return userService.setLikeComments(userId, likeComments);
+    }
+
+    @RequestMapping(value = "updateDislikeComments", method = RequestMethod.POST)
+    Result updateDisLikeComments(@RequestParam int userId, @RequestParam String dislikeComments){
+        return userService.setDislikeComments(userId, dislikeComments);
+    }
 }

@@ -10,7 +10,8 @@ public interface UserDao {
             "VALUES(#{username}, #{password})")
     Integer addUser(String username, String password);
 
-    @Select("SELECT id, username, nickname, motto, head_image FROM user_table WHERE id = #{id}")
+    @Select("SELECT id, username, nickname, motto, head_image, like_articles, dislike_articles, like_comments, dislike_comments FROM user_table WHERE id = #{id}")
+
     User getUserById(Integer id);
 
     @Select("SELECT id, username, nickname, motto, head_image FROM user_table WHERE username LIKE #{username}")
@@ -19,7 +20,7 @@ public interface UserDao {
     @Select("SELECT id, username, nickname, motto, head_image FROM user_table WHERE username LIKE '%${username}%'")
     List<User> searchUserByName(String username);
 
-    @Update("UPDATE user_table SET nickname = #{nickname}, motto = #{motto}, head_image = #{headImage}")
+    @Update("UPDATE user_table SET nickname = #{nickname}, motto = #{motto}, head_image = #{headImage} WHERE id = #{id}")
     Integer updateUser(User user);
 
     @Select("SELECT id FROM user_table WHERE username = #{username} AND password = #{password}")
@@ -34,6 +35,30 @@ public interface UserDao {
     @Select("SELECT COUNT(*) FROM admin_table WHERE user_id = #{userId}")
     Integer isAdmin(Integer userId);
 
-    @Select("SELECT * FROM user_table")
+    @Select("SELECT id, username, nickname, motto, head_image FROM user_table")
     List<User> allUser();
+
+    @Select("SELECT like_articles FROM user_table WHERE id = #{userId}")
+    String getLikeArticles(Integer userId);
+
+    @Update("UPDATE user_table SET like_articles = #{likeArticles} WHERE id = #{userId}")
+    Integer setLikeArticles(Integer userId, String likeArticles);
+
+    @Select("SELECT dislike_articles FROM user_table WHERE id = #{userId}")
+    String getDislikeArticles(Integer userId);
+
+    @Update("UPDATE user_table SET dislike_articles = #{disLikeArticles} WHERE id = #{userId}")
+    Integer setDisLikeArticles(Integer userId, String disLikeArticles);
+
+    @Select("SELECT like_comments FROM user_table WHERE id = #{userId}")
+    String getLikeComments(Integer userId);
+
+    @Update("UPDATE user_table SET like_comments = #{likeComments} WHERE id = #{userId}")
+    Integer setLikeComments(Integer userId, String likeComments);
+
+    @Select("SELECT dislike_comments FROM user_table WHERE id = #{userId}")
+    String getDislikeComments(Integer userId);
+
+    @Update("UPDATE user_table SET dislike_comments = #{disLikeComments} WHERE id = #{userId}")
+    Integer setDisLikeComments(Integer userId, String disLikeComments);
 }
