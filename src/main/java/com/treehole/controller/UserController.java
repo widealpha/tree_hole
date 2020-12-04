@@ -2,7 +2,6 @@ package com.treehole.controller;
 
 import com.treehole.domain.User;
 import com.treehole.service.UserService;
-import com.treehole.util.FileUtil;
 import com.treehole.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -25,10 +25,8 @@ public class AuthFilter implements Filter {
         servletResponse.setCharacterEncoding("UTF-8");
         servletResponse.setContentType("text/html;charset=utf-8");
         String token = request.getHeader("token");
-        System.out.println("token1:" + request.getHeader("token"));
         if (StringUtils.hasLength(token)){
             Integer id = tokenDao.getUserId(token);
-            System.out.println("id1:" + id);
             Map<String, Object> map = new HashMap<>();
             map.put("userId", id);
             RequestParameterWrapper requestParameterWrapper = new RequestParameterWrapper(request);

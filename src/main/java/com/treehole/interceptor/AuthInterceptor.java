@@ -13,10 +13,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=utf-8");
-        System.out.println("token2:" + request.getHeader("token"));
         String id = request.getParameter("userId");
-        System.out.println("id2:" + request.getParameter("userId"));
-        System.out.println("params:" + request.getParameterNames());
         if (response.getStatus() == 200 && id == null) {
             response.getWriter().print(Result.error( "token错误，请重新登陆"));
             return false;

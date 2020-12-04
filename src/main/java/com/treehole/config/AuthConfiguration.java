@@ -14,13 +14,13 @@ public class AuthConfiguration implements WebMvcConfigurer {
     @Autowired
     AuthInterceptor interceptor;
 
+    @Autowired
+    AuthFilter authFilter;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(interceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/treehole/user/login")
-                .excludePathPatterns("/treehole/user/register")
-                .excludePathPatterns("/treehole/article/**")
                 .excludePathPatterns("/user/login")
                 .excludePathPatterns("/user/register")
                 .excludePathPatterns("/article/**");
@@ -28,9 +28,8 @@ public class AuthConfiguration implements WebMvcConfigurer {
     @Bean
     public FilterRegistrationBean<AuthFilter> paramFilter(){
         FilterRegistrationBean<AuthFilter> bean = new FilterRegistrationBean<>();
-        bean.setFilter(new AuthFilter());
-        bean.addUrlPatterns("/**");
-        bean.addUrlPatterns("/treehole/**");
+        bean.setFilter(authFilter);
+        bean.addUrlPatterns("/*");
         bean.setOrder(0);
         return bean;
     }
