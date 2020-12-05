@@ -15,23 +15,33 @@ public class ArticleController {
     @Autowired
     ArticleService articleService;
 
-    @RequestMapping("/allArticles")
+    @PostMapping("/allArticles")
     Result allArticles(){
         return articleService.allArticles();
     }
 
-    @RequestMapping("/article")
+    @PostMapping("/article")
     Result getArticle(@RequestParam int id){
         return articleService.getArticle(id);
     }
 
-    @RequestMapping("/myArticles")
+    @PostMapping("/myArticles")
     Result getArticleByUserId(@RequestParam int userId){
         return articleService.getArticlesByUserId(userId);
     }
 
-    @RequestMapping("/isAuthor")
-    Result getArticleByUserId(@RequestParam int userId, @RequestParam int id){
+    @PostMapping("/recentArticles")
+    Result getArticleByTime(@RequestParam int days){
+        return articleService.getArticleByTime(days);
+    }
+
+    @PostMapping("/searchArticles")
+    Result searchArticle(@RequestParam String key){
+        return articleService.searchArticle(key);
+    }
+
+    @PostMapping("/isAuthor")
+    Result isAuthor(@RequestParam int userId, @RequestParam int id){
         return articleService.isAuthor(userId, id);
     }
 
@@ -99,10 +109,7 @@ public class ArticleController {
         return articleService.cancelLikeArticle(userId, id);
     }
 
-    @PostMapping("/isAuthor")
-    Result isAuthor(@RequestParam int userId, @RequestParam int id){
-        return articleService.isAuthor(userId, id);
-    }
+
 
     @PostMapping("dislikeArticle")
     Result dislikeArticle(

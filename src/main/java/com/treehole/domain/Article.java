@@ -11,6 +11,7 @@ public class Article {
     String images;
     String createTime;
     String lastEditTime;
+    int type;
 
     public Article() {
         like = dislike = readCount = 0;

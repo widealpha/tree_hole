@@ -30,6 +30,14 @@ public class ArticleService {
         return Result.data(articleDao.getArticlesByUserId(userId));
     }
 
+    public Result searchArticle(String key){
+        return Result.data(articleDao.searchArticle(key));
+    }
+
+    public Result getArticleByTime(int days){
+        return Result.data(articleDao.getAllArticleByTime(days));
+    }
+
     public Result isAuthor(int userId, int articleId) {
         Integer author = articleDao.getAuthor(articleId);
         if (author == null){

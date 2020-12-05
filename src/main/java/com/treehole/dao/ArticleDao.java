@@ -26,8 +26,15 @@ public interface ArticleDao {
     @Select("SELECT * FROM article_table WHERE author = #{userId}")
     List<Article> getArticlesByUserId(int userId);
 
+
     @Select("SELECT * FROM article_table")
     List<Article> getAllArticles();
+
+    @Select("SELECT * FROM article_table WHERE title LIKE '%${key}%' OR content LIKE '%${key}%' OR emotion LIKE '%${key}%'")
+    List<Article> searchArticle(String key);
+
+    @Select("SELECT * FROM article_table WHERE TO_DAYS(now()) - TO_DAYS(article_table.lastEditTime) <= #{days}")
+    List<Article> getAllArticleByTime(int days);
 
     @Select("SELECT `like` FROM article_table WHERE id = #{id} LIMIT 1")
     Integer getArticleLikeCount(Integer id);
