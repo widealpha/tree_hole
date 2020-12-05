@@ -36,6 +36,37 @@ public class FileUtil {
         return use != null ? HOST + use + '/' + fileName : HOST + fileName;
     }
 
+    @SuppressWarnings("all")
+    public static String saveMusic(MultipartFile multipartFile, @Nullable String use){
+        if (multipartFile == null){
+            return null;
+        }
+        String filename;
+        if (multipartFile.getOriginalFilename() != null){
+            String[] names = multipartFile.getOriginalFilename().split("\\.");
+            filename = generatorFilename(null, names[names.length - 1]);
+        } else {
+            filename = generatorFilename(null, "mp3");
+        }
+        String path = "/media/music/";
+        if (use != null){
+            path += use + "/";
+        }
+        File p = new File(path);
+        if (!p.exists()){
+            p.mkdirs();
+        }
+        File file = new File(path + filename);
+        file.setReadable(true, false);
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            file.createNewFile();
+            fos.write(multipartFile.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return use != null ? HOST + use + '/' + filename : HOST + filename;
+    }
+
     public static String generatorFilename(@Nullable String prefix,@Nullable String suffix){
         Date date = new Date();
         StringBuilder builder = new StringBuilder();

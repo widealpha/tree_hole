@@ -171,7 +171,7 @@ public class UserService {
     }
 
     public Result setDislikeComments(Integer userId, String dislikeList){
-        int id =  userDao.setLikeComments(userId, dislikeList);
+        int id =  userDao.setDisLikeComments(userId, dislikeList);
         if (id > 0){
             return getDislikeComments(userId);
         } else {

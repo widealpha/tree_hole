@@ -23,6 +23,12 @@ public class AuthConfiguration implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/user/login")
                 .excludePathPatterns("/user/register")
+                .excludePathPatterns("/user/comment")
+                .excludePathPatterns("/comment/articleComments")
+                .excludePathPatterns("/comment/commentOnComment")
+                .excludePathPatterns("/comment/getComment")
+                .excludePathPatterns("/article/article")
+                .excludePathPatterns("/article/uploadImage")
                 .excludePathPatterns("/article/allArticles");
     }
     @Bean

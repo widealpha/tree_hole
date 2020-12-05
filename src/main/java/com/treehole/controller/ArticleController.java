@@ -41,6 +41,13 @@ public class ArticleController {
         return Result.data(link);
     }
 
+    @PostMapping("/uploadMusic")
+    Result uploadMusic(@RequestParam MultipartFile music){
+        String link = FileUtil.saveMusic(music, "music");
+        return Result.data(link);
+    }
+
+
     @PostMapping("/addArticle")
     Result addArticle(
             @RequestParam int userId,
@@ -73,6 +80,11 @@ public class ArticleController {
         return articleService.updateArticle(userId, article);
     }
 
+    @PostMapping("deleteArticle")
+    Result deleteArticle(@RequestParam int userId, @RequestParam int id){
+        return articleService.deleteArticle(userId, id);
+    }
+
     @PostMapping("/likeArticle")
     Result likeArticle(
             @RequestParam int userId,
@@ -85,6 +97,11 @@ public class ArticleController {
             @RequestParam int userId,
             @RequestParam int id){
         return articleService.cancelLikeArticle(userId, id);
+    }
+
+    @PostMapping("/isAuthor")
+    Result isAuthor(@RequestParam int userId, @RequestParam int id){
+        return articleService.isAuthor(userId, id);
     }
 
     @PostMapping("dislikeArticle")
