@@ -19,14 +19,14 @@ public class UserService {
     @Autowired
     TokenDao tokenDao;
 
-    public Result register(String username, String password) {
+    public Result register(String username, String password, String phone) {
         if (!StringUtils.hasLength(username) || !StringUtils.hasLength(password)) {
             return Result.error("用户名密码不能为空");
         }
         if (userDao.getUserByName(username) != null){
             return Result.error(-2, "用户名已经存在");
         }
-        int id = userDao.addUser(username, password);
+        int id = userDao.addUser(username, password, phone);
         if (id > 0) {
             return Result.data("");
         }
@@ -64,6 +64,18 @@ public class UserService {
 
     }
 
+    public Result forceChangePassword(String username, String phone, String newPassword){
+        if (!StringUtils.hasLength(newPassword)){
+            return Result.error("新密码不能为空");
+        }
+        boolean success = userDao.forceChangePassword(username, phone, newPassword) > 0;
+        if (success){
+            return Result.data(true);
+        } else {
+            return Result.success("信息不匹配");
+        }
+    }
+
     public Result logout(int id) {
         if (tokenDao.deleteTokenById(id) > 0) {
             return Result.success("退出成功");
@@ -80,6 +92,10 @@ public class UserService {
         return Result.data(user);
     }
 
+    public Result myPhone(int id){
+        return Result.data(userDao.getPhoneById(id));
+    }
+
     public Result updateUserInfo(User user, MultipartFile image) {
         User origin = userDao.getUserById(user.getId());
         if (image == null){
@@ -90,6 +106,9 @@ public class UserService {
         }
         if (user.getNickname() == null){
             user.setNickname(origin.getNickname());
+        }
+        if (user.getPhone() == null){
+            user.setPhone(origin.getPhone());
         }
         if (user.getMotto() == null){
             user.setMotto(origin.getMotto());

@@ -6,13 +6,15 @@ import java.util.*;
 
 @Mapper
 public interface UserDao {
-    @Insert("INSERT INTO user_table (username, password) " +
-            "VALUES(#{username}, #{password})")
-    Integer addUser(String username, String password);
+    @Insert("INSERT INTO user_table (username, password, phone) " +
+            "VALUES(#{username}, #{password}, #{phone})")
+    Integer addUser(String username, String password, String phone);
 
     @Select("SELECT id, username, nickname, motto, head_image, like_articles, dislike_articles, like_comments, dislike_comments FROM user_table WHERE id = #{id}")
-
     User getUserById(Integer id);
+
+    @Select("SELECT phone FROM user_table WHERE id = #{id}")
+    String getPhoneById(Integer id);
 
     @Select("SELECT id, username, nickname, motto, head_image FROM user_table WHERE username LIKE #{username}")
     User getUserByName(String username);
@@ -20,7 +22,7 @@ public interface UserDao {
     @Select("SELECT id, username, nickname, motto, head_image FROM user_table WHERE username LIKE '%${username}%'")
     List<User> searchUserByName(String username);
 
-    @Update("UPDATE user_table SET nickname = #{nickname}, motto = #{motto}, head_image = #{headImage} WHERE id = #{id}")
+    @Update("UPDATE user_table SET nickname = #{nickname}, motto = #{motto}, head_image = #{headImage}, phone = #{phone} WHERE id = #{id}")
     Integer updateUser(User user);
 
     @Select("SELECT id FROM user_table WHERE username = #{username} AND password = #{password}")
@@ -28,6 +30,9 @@ public interface UserDao {
 
     @Update("UPDATE user_table SET password = #{newPassword} WHERE id = #{id}")
     Integer changePassword(Integer id, String newPassword);
+
+    @Update("UPDATE user_table SET password = #{newPassword} WHERE phone = #{phone} AND username = #{username}")
+    Integer forceChangePassword( String username, String phone, String newPassword);
 
     @Delete("DELETE FROM user_table WHERE id = #{id}")
     Integer deleteUser(Integer id);

@@ -5,11 +5,20 @@ public class User {
     String username;
     String nickname;
     String motto;
+    String phone;
     String headImage;
     String likeArticles;
     String disLikeArticles;
     String likeComments;
     String disLikeComments;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getLikeArticles() {
         return likeArticles;

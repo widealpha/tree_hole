@@ -4,6 +4,7 @@ import com.treehole.domain.User;
 import com.treehole.service.UserService;
 import com.treehole.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,13 +16,22 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    Result register(@RequestParam String username, @RequestParam String password) {
-        return userService.register(username, password);
+    Result register(
+            @RequestParam String username,
+            @RequestParam String password,
+            @RequestParam(required = false) String phone
+            ) {
+        return userService.register(username, password, phone);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     Result login(@RequestParam String username, @RequestParam String password) {
         return userService.login(username, password);
+    }
+
+    @PostMapping("myPhone")
+    Result phone(@RequestParam int userId){
+        return userService.myPhone(userId);
     }
 
     @RequestMapping(value = "/logout")
@@ -39,9 +49,11 @@ public class UserController {
             @RequestParam int userId,
             @RequestParam(required = false) String nickname,
             @RequestParam(required = false) String motto,
+            @RequestParam(required = false) String phone,
             @RequestParam(required = false) MultipartFile image) {
         User user = new User();
         user.setId(userId);
+        user.setPhone(phone);
         user.setNickname(nickname);
         user.setMotto(motto);
         return userService.updateUserInfo(user, image);
@@ -52,6 +64,14 @@ public class UserController {
                           @RequestParam String oldPassword,
                           @RequestParam String newPassword){
         return userService.changePassword(userId, oldPassword, newPassword);
+    }
+
+    @PostMapping("/forceChangePassword")
+    Result forceChangePassword(@RequestParam String username,@RequestParam String phone,@RequestParam String password){
+        if (!StringUtils.hasLength(username) || !StringUtils.hasLength(phone)){
+            return Result.error("信息不能为空");
+        }
+        return userService.forceChangePassword(username, phone, password);
     }
 
     @RequestMapping(value = "/isAdmin", method = RequestMethod.POST)
