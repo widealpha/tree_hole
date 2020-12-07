@@ -29,6 +29,7 @@ public class UserController {
         return userService.login(username, password);
     }
 
+
     @PostMapping("myPhone")
     Result phone(@RequestParam int userId){
         return userService.myPhone(userId);
@@ -65,7 +66,7 @@ public class UserController {
                           @RequestParam String newPassword){
         return userService.changePassword(userId, oldPassword, newPassword);
     }
-
+    
     @PostMapping("changePasswordAdmin")
     Result changePasswordAdmin(@RequestParam int userId, @RequestParam int changeUserId, @RequestParam String password){
         return userService.changePasswordAdmin(userId, changeUserId, password);
