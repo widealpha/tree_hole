@@ -23,6 +23,7 @@ public class AuthConfiguration implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/user/login")
                 .excludePathPatterns("/user/register")
+                .excludePathPatterns("/user/forceChangePassword")
                 .excludePathPatterns("/user/comment")
                 .excludePathPatterns("/comment/articleComments")
                 .excludePathPatterns("/comment/commentOnComment")

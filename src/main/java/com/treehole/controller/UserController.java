@@ -66,6 +66,11 @@ public class UserController {
         return userService.changePassword(userId, oldPassword, newPassword);
     }
 
+    @PostMapping("changePasswordAdmin")
+    Result changePasswordAdmin(@RequestParam int userId, @RequestParam int changeUserId, @RequestParam String password){
+        return userService.changePasswordAdmin(userId, changeUserId, password);
+    }
+
     @PostMapping("/forceChangePassword")
     Result forceChangePassword(@RequestParam String username,@RequestParam String phone,@RequestParam String password){
         if (!StringUtils.hasLength(username) || !StringUtils.hasLength(phone)){

@@ -76,6 +76,16 @@ public class UserService {
         }
     }
 
+    public Result changePasswordAdmin(Integer id, Integer changeId, String password){
+        if (userDao.isAdmin(id) <= 0){
+            return Result.error("不是管理员");
+        }
+        if (!StringUtils.hasLength(password)){
+            return Result.error(-2,"密码不能为空");
+        }
+        return Result.data(String.valueOf(userDao.changePassword(changeId, password) > 0));
+    }
+
     public Result logout(int id) {
         if (tokenDao.deleteTokenById(id) > 0) {
             return Result.success("退出成功");
