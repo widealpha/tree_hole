@@ -31,8 +31,13 @@ public class ArticleController {
     }
 
     @PostMapping("/recentArticles")
-    Result getArticleByTime(@RequestParam int days){
+    Result getArticleByTime(@RequestParam int userId, @RequestParam int days){
         return articleService.getArticleByTime(days);
+    }
+
+    @PostMapping("filterArticles")
+    Result getArticleByStartEnd(@RequestParam int userId, @RequestParam String startTime, @RequestParam String endTime){
+        return articleService.getArticleByStartEnd(startTime, endTime);
     }
 
     @PostMapping("/searchArticles")

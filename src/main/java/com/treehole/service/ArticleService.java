@@ -38,6 +38,10 @@ public class ArticleService {
         return Result.data(articleDao.getAllArticleByTime(days));
     }
 
+    public Result getArticleByStartEnd(String startTime, String endTime){
+        return Result.data(articleDao.getArticlesByStartEnd(startTime, endTime));
+    }
+
     public Result isAuthor(int userId, int articleId) {
         Integer author = articleDao.getAuthor(articleId);
         if (author == null){

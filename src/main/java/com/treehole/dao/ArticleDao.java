@@ -35,6 +35,9 @@ public interface ArticleDao {
 
     @Select("SELECT * FROM article_table WHERE TO_DAYS(now()) - TO_DAYS(article_table.lastEditTime) <= #{days}")
     List<Article> getAllArticleByTime(int days);
+    
+    @Select("SELECT * FROM article_table WHERE TO_DAYS(lastEditTime) >= TO_DAYS(#{start}) AND TO_DAYS(lastEditTime) <= TO_DAYS(#{end})")
+    List<Article> getArticlesByStartEnd(String start, String end);
 
     @Select("SELECT `like` FROM article_table WHERE id = #{id} LIMIT 1")
     Integer getArticleLikeCount(Integer id);
