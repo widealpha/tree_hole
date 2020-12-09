@@ -8,12 +8,12 @@ import java.util.List;
 
 @Mapper
 public interface ArticleDao {
-    @Insert("INSERT INTO article_table (author, title, content, emotion, createTime, lastEditTime)" +
-            " VALUES (#{author}, #{title},  #{content}, #{emotion}, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP)")
-    Integer addArticle(int author, String title, String content, String emotion);
+    @Insert("INSERT INTO article_table (author, title, content, emotion, createTime, lastEditTime, images)" +
+            " VALUES (#{author}, #{title},  #{content}, #{emotion}, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP, #{images})")
+    Integer addArticle(int author, String title, String content, String emotion, String images);
 
     @Update("UPDATE article_table " +
-            "SET title = #{title}, content = #{content}, emotion = #{emotion}, lastEditTime = CURRENT_TIME()" +
+            "SET title = #{title}, content = #{content}, emotion = #{emotion}, lastEditTime = CURRENT_TIME(), images = #{images}" +
             " WHERE id = #{id}")
     Integer editArticle(Article article);
 
@@ -33,8 +33,8 @@ public interface ArticleDao {
     @Select("SELECT * FROM article_table WHERE title LIKE '%${key}%' OR content LIKE '%${key}%' OR emotion LIKE '%${key}%'")
     List<Article> searchArticle(String key);
 
-    @Select("SELECT * FROM article_table WHERE TO_DAYS(now()) - TO_DAYS(article_table.lastEditTime) <= #{days}")
-    List<Article> getAllArticleByTime(int days);
+    @Select("SELECT * FROM article_table WHERE author = #{userId} AND TO_DAYS(now()) - TO_DAYS(article_table.lastEditTime) <= #{days}")
+    List<Article> getAllArticleByTime(int userId, int days);
     
     @Select("SELECT * FROM article_table WHERE TO_DAYS(lastEditTime) >= TO_DAYS(#{start}) AND TO_DAYS(lastEditTime) <= TO_DAYS(#{end})")
     List<Article> getArticlesByStartEnd(String start, String end);

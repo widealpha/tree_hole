@@ -34,8 +34,8 @@ public class ArticleService {
         return Result.data(articleDao.searchArticle(key));
     }
 
-    public Result getArticleByTime(int days){
-        return Result.data(articleDao.getAllArticleByTime(days));
+    public Result getArticleByTime(int userId, int days){
+        return Result.data(articleDao.getAllArticleByTime(userId, days));
     }
 
     public Result getArticleByStartEnd(String startTime, String endTime){
@@ -50,9 +50,11 @@ public class ArticleService {
         return Result.data(String.valueOf(author == userId));
     }
 
+
+
     public Result addArticle(int userId, Article article) {
         return Result.data(String.valueOf(articleDao.addArticle(
-                userId, article.getTitle(), article.getContent(), article.getEmotion()) > 0));
+                userId, article.getTitle(), article.getContent(), article.getEmotion(), article.getImages()) > 0));
     }
 
     public Result updateArticle(int userId, Article article) {

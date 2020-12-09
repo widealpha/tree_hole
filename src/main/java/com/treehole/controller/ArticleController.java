@@ -32,7 +32,7 @@ public class ArticleController {
 
     @PostMapping("/recentArticles")
     Result getArticleByTime(@RequestParam int userId, @RequestParam int days){
-        return articleService.getArticleByTime(days);
+        return articleService.getArticleByTime(userId, days);
     }
 
     @PostMapping("filterArticles")

@@ -1,7 +1,6 @@
 package com.treehole.filter;
 
 import com.treehole.dao.TokenDao;
-import com.treehole.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -22,6 +21,7 @@ public class AuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+        request.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
         servletResponse.setContentType("text/html;charset=utf-8");
         String token = request.getHeader("token");
