@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @ResponseBody
 @RequestMapping("/article")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class ArticleController {
     @Autowired
     ArticleService articleService;
@@ -18,6 +19,16 @@ public class ArticleController {
     @PostMapping("/allArticles")
     Result allArticles(){
         return articleService.allArticles();
+    }
+
+    @PostMapping("allUnVerifyArticle")
+    Result allUnVerifyArticle(@RequestParam int userId){
+        return articleService.getAllUnVerifyArticles(userId);
+    }
+
+    @PostMapping("verifyArticle")
+    Result verifyArticle(@RequestParam int userId, @RequestParam int id){
+        return articleService.verifyArticle(userId, id);
     }
 
     @PostMapping("/article")

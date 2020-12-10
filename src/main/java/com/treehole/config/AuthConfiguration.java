@@ -19,16 +19,6 @@ public class AuthConfiguration implements WebMvcConfigurer {
     AuthFilter authFilter;
 
     @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")// 这是请求映射路径
-                .allowedHeaders("*")// 这里是所有请求头的意思
-                .allowedOrigins("*")// 允许任何源反问（不安全），这里一般填前端域名
-                .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
-                .maxAge(3600)
-                .allowCredentials(true);
-    }
-
-    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(interceptor)
                 .addPathPatterns("/**")

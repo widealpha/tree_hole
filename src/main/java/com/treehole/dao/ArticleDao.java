@@ -20,23 +20,28 @@ public interface ArticleDao {
     @Delete("DELETE FROM article_table WHERE id = #{id}")
     Integer deleteArticle(Integer id);
 
-    @Select("SELECT * FROM article_table WHERE id = #{id} LIMIT 1")
+    @Select("SELECT * FROM article_table WHERE id = #{id} AND verify = 1 LIMIT 1")
     Article getArticle(Integer id);
+
+    @Select("SELECT * FROM article_table WHERE verify = 0")
+    List<Article> getAllUnVerifyArticle();
+
+    @Update("UPDATE article_table SET verify = 1 WHERE  id = #{articleId}")
+    Integer verifyArticle(int articleId);
 
     @Select("SELECT * FROM article_table WHERE author = #{userId}")
     List<Article> getArticlesByUserId(int userId);
 
-
-    @Select("SELECT * FROM article_table")
+    @Select("SELECT * FROM article_table WHERE verify = 1")
     List<Article> getAllArticles();
 
-    @Select("SELECT * FROM article_table WHERE title LIKE '%${key}%' OR content LIKE '%${key}%' OR emotion LIKE '%${key}%'")
+    @Select("SELECT * FROM article_table WHERE title LIKE '%${key}%' OR content LIKE '%${key}%' OR emotion LIKE '%${key}%' AND verify = 1")
     List<Article> searchArticle(String key);
 
-    @Select("SELECT * FROM article_table WHERE author = #{userId} AND TO_DAYS(now()) - TO_DAYS(article_table.lastEditTime) <= #{days}")
+    @Select("SELECT * FROM article_table WHERE author = #{userId} AND TO_DAYS(now()) - TO_DAYS(article_table.lastEditTime) <= #{days} AND verify = 1")
     List<Article> getAllArticleByTime(int userId, int days);
     
-    @Select("SELECT * FROM article_table WHERE TO_DAYS(lastEditTime) >= TO_DAYS(#{start}) AND TO_DAYS(lastEditTime) <= TO_DAYS(#{end})")
+    @Select("SELECT * FROM article_table WHERE TO_DAYS(lastEditTime) >= TO_DAYS(#{start}) AND TO_DAYS(lastEditTime) <= TO_DAYS(#{end}) AND verify = 1")
     List<Article> getArticlesByStartEnd(String start, String end);
 
     @Select("SELECT `like` FROM article_table WHERE id = #{id} LIMIT 1")

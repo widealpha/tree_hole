@@ -16,6 +16,13 @@ public class CommentService {
     @Autowired
     UserDao userDao;
 
+    public Result getAllComments(int userId){
+        if (userDao.isAdmin(userId) <= 0){
+            return Result.data("不是管理员");
+        }
+        return Result.data(commentDao.getAllComments());
+    }
+
     public Result getCommentsByArticleId(int articleId){
         return Result.data(commentDao.getCommentsByArticleId(articleId));
     }

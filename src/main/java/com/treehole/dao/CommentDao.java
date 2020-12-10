@@ -8,6 +8,10 @@ import java.util.List;
 
 @Mapper
 public interface CommentDao {
+
+    @Select("SELECT * FROM comment_table ORDER BY create_time DESC")
+    List<Comment> getAllComments();
+
     @Select("SELECT id, article_id, comment_id, content, agree, disagree, create_time FROM comment_table WHERE article_id = #{articlrId}")
     List<Comment> getCommentsByArticleId(int articleId);
 

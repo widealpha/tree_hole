@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @ResponseBody
 @RequestMapping("/comment")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class CommentController {
     @Autowired
     CommentService commentService;
@@ -18,6 +19,10 @@ public class CommentController {
         return commentService.getComment(commentId);
     }
 
+    @PostMapping("allComments")
+    Result getAllComments(@RequestParam int userId){
+        return commentService.getAllComments(userId);
+    }
 
     @PostMapping("articleComments")
     Result articleComments(@RequestParam Integer articleId){

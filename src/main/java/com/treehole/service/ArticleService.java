@@ -26,6 +26,20 @@ public class ArticleService {
         return Result.data(articleDao.getArticle(articleId));
     }
 
+    public Result getAllUnVerifyArticles(int userId){
+        if (userDao.isAdmin(userId) > 0){
+            return Result.data(articleDao.getAllUnVerifyArticle());
+        }
+        return Result.error("不是管理员");
+    }
+
+    public Result verifyArticle(int userId, int id){
+        if (userDao.isAdmin(userId) > 0){
+            return Result.data(articleDao.verifyArticle(id));
+        }
+        return Result.error("不是管理员");
+    }
+
     public Result getArticlesByUserId(int userId) {
         return Result.data(articleDao.getArticlesByUserId(userId));
     }

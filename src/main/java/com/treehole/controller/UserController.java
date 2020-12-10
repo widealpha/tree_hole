@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @ResponseBody
 @RequestMapping("/user")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class UserController {
     @Autowired
     UserService userService;

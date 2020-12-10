@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @ResponseBody
 @RequestMapping("/push")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class PushController {
     @Autowired
     PushService pushService;
