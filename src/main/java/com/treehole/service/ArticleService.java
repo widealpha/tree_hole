@@ -64,8 +64,6 @@ public class ArticleService {
         return Result.data(String.valueOf(author == userId));
     }
 
-
-
     public Result addArticle(int userId, Article article) {
         return Result.data(String.valueOf(articleDao.addArticle(
                 userId, article.getTitle(), article.getContent(), article.getEmotion(), article.getImages()) > 0));

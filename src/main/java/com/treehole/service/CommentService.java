@@ -52,7 +52,7 @@ public class CommentService {
     }
 
     public Result deleteComment(int userId, int id){
-        int author = commentDao.getAuthor(id);
+        Integer author = commentDao.getAuthor(id);
         if (userId != author && userDao.isAdmin(userId) == 0){
             return Result.error("您不能删除此评论");
         }
