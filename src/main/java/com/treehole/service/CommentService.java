@@ -9,6 +9,10 @@ import com.treehole.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class CommentService {
     @Autowired
@@ -121,5 +125,23 @@ public class CommentService {
             userDao.setDisLikeComments(userId, dislikeArray.toJSONString());
         }
         return Result.data(success);
+    }
+
+    public Result hasLiked(int userId, List<Integer> commentIds){
+        Map<Integer, Boolean> re = new HashMap<>();
+        String likeList = userDao.getLikeComments(userId);
+        List<Integer> array = JSONArray.parseArray(likeList, Integer.class);
+
+        if (array == null || array.isEmpty()){
+            return Result.data("");
+        }
+        for (Integer commentId: commentIds) {
+            if (array.contains(commentId)){
+                re.put(commentId, true);
+            } else {
+                re.put(commentId, false);
+            }
+        }
+        return Result.data(re);
     }
 }

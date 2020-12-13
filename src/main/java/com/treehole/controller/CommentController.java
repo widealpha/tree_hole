@@ -1,10 +1,13 @@
 package com.treehole.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.treehole.domain.Comment;
 import com.treehole.service.CommentService;
 import com.treehole.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @ResponseBody
@@ -85,5 +88,11 @@ public class CommentController {
     @PostMapping("cancelDislikeComment")
     Result cancelDislikeComment(@RequestParam Integer userId, @RequestParam Integer commentId){
         return commentService.cancelDislikeComment(userId, commentId);
+    }
+
+    @PostMapping("hasLiked")
+    Result hasLiked(@RequestParam int userId, @RequestParam String commentIds){
+        List<Integer> commentList = JSONArray.parseArray(commentIds, Integer.class);
+        return commentService.hasLiked(userId, commentList);
     }
 }

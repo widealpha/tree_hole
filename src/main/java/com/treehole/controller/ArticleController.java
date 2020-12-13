@@ -1,5 +1,6 @@
 package com.treehole.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.treehole.domain.Article;
 import com.treehole.service.ArticleService;
 import com.treehole.util.FileUtil;
@@ -7,6 +8,8 @@ import com.treehole.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @ResponseBody
@@ -141,4 +144,9 @@ public class ArticleController {
         return articleService.cancelDislikeArticle(userId, id);
     }
 
+    @PostMapping("hasLiked")
+    Result hasLiked(@RequestParam int userId, @RequestParam String articleIds){
+        List<Integer> articleList = JSONArray.parseArray(articleIds, Integer.class);
+        return articleService.hasLiked(userId, articleList);
+    }
 }
