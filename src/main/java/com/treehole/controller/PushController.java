@@ -2,9 +2,11 @@ package com.treehole.controller;
 
 import com.treehole.domain.Push;
 import com.treehole.service.PushService;
+import com.treehole.util.FileUtil;
 import com.treehole.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @ResponseBody
@@ -27,6 +29,13 @@ public class PushController {
         push.setFile(music);
         return pushService.addMusicPush(push);
     }
+
+    @PostMapping("/uploadMusic")
+    Result uploadMusic(@RequestParam MultipartFile music){
+        String link = FileUtil.saveMusic(music, "music");
+        return Result.data(link);
+    }
+
 
     @PostMapping("pushChickenSoul")
     Result pushChickenSoul(

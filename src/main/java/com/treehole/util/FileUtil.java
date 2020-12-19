@@ -48,8 +48,8 @@ public class FileUtil {
         } else {
             filename = generatorFilename(null, "mp3");
         }
-        String path = "/media/music/";
-        if (use != null){
+        String path = "/media/images/";
+        if (use != null && use.trim().length() > 0){
             path += use + "/";
         }
         File p = new File(path);
