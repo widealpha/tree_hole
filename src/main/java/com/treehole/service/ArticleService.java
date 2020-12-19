@@ -92,7 +92,6 @@ public class ArticleService {
     public Result likeArticle(int userId, int articleId) {
         boolean success = articleDao.likeArticle(articleId) > 0;
         if (success) {
-
             JSONArray likeArray = JSON.parseArray(userDao.getLikeArticles(userId));
             if (likeArray == null) {
                 likeArray = new JSONArray();
@@ -172,4 +171,5 @@ public class ArticleService {
         }
         return Result.data(re);
     }
+
 }

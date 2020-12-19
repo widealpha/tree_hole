@@ -20,7 +20,7 @@ public interface ArticleDao {
     @Delete("DELETE FROM article_table WHERE id = #{id}")
     Integer deleteArticle(Integer id);
 
-    @Select("SELECT * FROM article_table WHERE id = #{id} AND verify = 1 LIMIT 1")
+    @Select("SELECT * FROM article_table WHERE id = #{id} LIMIT 1")
     Article getArticle(Integer id);
 
     @Select("SELECT * FROM article_table WHERE verify = 0")
@@ -35,7 +35,7 @@ public interface ArticleDao {
     @Select("SELECT * FROM article_table WHERE verify = 1")
     List<Article> getAllArticles();
 
-    @Select("SELECT * FROM article_table WHERE title LIKE '%${key}%' OR content LIKE '%${key}%' OR emotion LIKE '%${key}%' AND verify = 1")
+    @Select("SELECT * FROM article_table WHERE (title LIKE '%${key}%' OR content LIKE '%${key}%' OR emotion LIKE '%${key}%') AND verify = 1")
     List<Article> searchArticle(String key);
 
     @Select("SELECT * FROM article_table WHERE author = #{userId} AND TO_DAYS(now()) - TO_DAYS(article_table.lastEditTime) <= #{days} AND verify = 1")
