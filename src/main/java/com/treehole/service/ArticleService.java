@@ -44,6 +44,10 @@ public class ArticleService {
         return Result.error("不是管理员");
     }
 
+    public Result verifyAllArticle(){
+        return Result.data(articleDao.verifyAllArticle());
+    }
+
     public Result getArticlesByUserId(int userId) {
         return Result.data(articleDao.getArticlesByUserId(userId));
     }

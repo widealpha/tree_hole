@@ -17,7 +17,7 @@ public class FileUtil {
             return null;
         }
         String fileName = generatorFilename(null, "jpg");
-        String path = "/media/images/";
+        String path = "/home/share/";
         if (use != null){
             path += use + "/";
         }
@@ -48,7 +48,7 @@ public class FileUtil {
         } else {
             filename = generatorFilename(null, "mp3");
         }
-        String path = "/media/images/";
+        String path = "/home/share/";
         if (use != null && use.trim().length() > 0){
             path += use + "/";
         }

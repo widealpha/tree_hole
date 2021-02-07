@@ -34,6 +34,11 @@ public class ArticleController {
         return articleService.verifyArticle(userId, id);
     }
 
+    @PostMapping("verifyAllArticle")
+    Result verifyAllArticle(@RequestParam int userId){
+        return articleService.verifyAllArticle();
+    }
+
     @PostMapping("/article")
     Result getArticle(@RequestParam int id){
         return articleService.getArticle(id);

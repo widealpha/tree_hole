@@ -29,6 +29,9 @@ public interface ArticleDao {
     @Update("UPDATE article_table SET verify = 1 WHERE  id = #{articleId}")
     Integer verifyArticle(int articleId);
 
+    @Update("UPDATE article_table SET verify = 1 WHERE  verify = 0")
+    Integer verifyAllArticle();
+
     @Select("SELECT * FROM article_table WHERE author = #{userId}")
     List<Article> getArticlesByUserId(int userId);
 
