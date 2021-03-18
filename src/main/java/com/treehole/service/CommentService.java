@@ -20,57 +20,57 @@ public class CommentService {
     @Autowired
     UserDao userDao;
 
-    public Result getAllComments(int userId){
-        if (userDao.isAdmin(userId) <= 0){
+    public Result getAllComments(int userId) {
+        if (userDao.isAdmin(userId) <= 0) {
             return Result.data("不是管理员");
         }
         return Result.data(commentDao.getAllComments());
     }
 
-    public Result getCommentsByArticleId(int articleId){
+    public Result getCommentsByArticleId(int articleId) {
         return Result.data(commentDao.getCommentsByArticleId(articleId));
     }
 
-    public Result getCommentsByCommentId(int commentId){
+    public Result getCommentsByCommentId(int commentId) {
         return Result.data(commentDao.getCommentsByCommentId(commentId));
     }
 
-    public Result getComment(int commentId){
+    public Result getComment(int commentId) {
         return Result.data(commentDao.getCommentById(commentId));
     }
 
-    public Result myComments(int userId){
+    public Result myComments(int userId) {
         return Result.data(commentDao.getMyComments(userId));
     }
 
-    public Result isAuthor(int userId, int commentId){
+    public Result isAuthor(int userId, int commentId) {
         Integer author = commentDao.getAuthor(commentId);
-        if (author == null){
+        if (author == null) {
             return Result.data(false);
         }
         return Result.data(String.valueOf(author == userId));
     }
 
-    public Result addComment(Comment comment){
+    public Result addComment(Comment comment) {
         return Result.data(String.valueOf(commentDao.addComment(comment) > 0));
     }
 
-    public Result deleteComment(int userId, int id){
+    public Result deleteComment(int userId, int id) {
         Integer author = commentDao.getAuthor(id);
-        if (userId != author && userDao.isAdmin(userId) == 0){
+        if (userId != author && userDao.isAdmin(userId) == 0) {
             return Result.error("您不能删除此评论");
         }
         return Result.data(String.valueOf(commentDao.deleteComment(id) > 0));
     }
 
-    public Result likeComment(int userId, int commentId){
+    public Result likeComment(int userId, int commentId) {
         boolean success = commentDao.agreeComment(commentId) > 0;
-        if (success){
+        if (success) {
             JSONArray likeArray = JSON.parseArray(userDao.getLikeComments(userId));
-            if (likeArray == null){
+            if (likeArray == null) {
                 likeArray = new JSONArray();
             }
-            if (likeArray.contains(commentId)){
+            if (likeArray.contains(commentId)) {
                 return Result.error("您已经点过赞了");
             }
             likeArray.add(commentId);
@@ -79,14 +79,14 @@ public class CommentService {
         return Result.data(success);
     }
 
-    public Result cancelLikeComment(int userId, int commentId){
+    public Result cancelLikeComment(int userId, int commentId) {
         boolean success = commentDao.cancelAgreeComment(commentId) > 0;
-        if (success){
+        if (success) {
             JSONArray likeArray = JSON.parseArray(userDao.getLikeComments(userId));
-            if (likeArray == null){
+            if (likeArray == null) {
                 likeArray = new JSONArray();
             }
-            if (!likeArray.contains(commentId)){
+            if (!likeArray.contains(commentId)) {
                 return Result.error("您还没点过赞了");
             }
             likeArray.remove(new Integer(commentId));
@@ -95,14 +95,14 @@ public class CommentService {
         return Result.data(success);
     }
 
-    public Result disLikeComment(int userId, int commentId){
+    public Result disLikeComment(int userId, int commentId) {
         boolean success = commentDao.disagreeComment(commentId) > 0;
-        if (success){
+        if (success) {
             JSONArray dislikeArray = JSON.parseArray(userDao.getDislikeComments(userId));
-            if (dislikeArray == null){
+            if (dislikeArray == null) {
                 dislikeArray = new JSONArray();
             }
-            if (dislikeArray.contains(commentId)){
+            if (dislikeArray.contains(commentId)) {
                 return Result.error("您已经踩过了");
             }
             dislikeArray.add(commentId);
@@ -111,14 +111,14 @@ public class CommentService {
         return Result.data(success);
     }
 
-    public Result cancelDislikeComment(int userId, int commentId){
+    public Result cancelDislikeComment(int userId, int commentId) {
         boolean success = commentDao.cancelDisagreeComment(commentId) > 0;
-        if (success){
+        if (success) {
             JSONArray dislikeArray = JSON.parseArray(userDao.getDislikeComments(userId));
-            if (dislikeArray == null){
+            if (dislikeArray == null) {
                 dislikeArray = new JSONArray();
             }
-            if (!dislikeArray.contains(commentId)){
+            if (!dislikeArray.contains(commentId)) {
                 return Result.error("未点过踩");
             }
             dislikeArray.remove(new Integer(commentId));
@@ -127,16 +127,16 @@ public class CommentService {
         return Result.data(success);
     }
 
-    public Result hasLiked(int userId, List<Integer> commentIds){
+    public Result hasLiked(int userId, List<Integer> commentIds) {
         Map<Integer, Boolean> re = new HashMap<>();
         String likeList = userDao.getLikeComments(userId);
         List<Integer> array = JSONArray.parseArray(likeList, Integer.class);
 
-        if (array == null || array.isEmpty()){
+        if (array == null || array.isEmpty()) {
             return Result.data("");
         }
-        for (Integer commentId: commentIds) {
-            if (array.contains(commentId)){
+        for (Integer commentId : commentIds) {
+            if (array.contains(commentId)) {
                 re.put(commentId, true);
             } else {
                 re.put(commentId, false);

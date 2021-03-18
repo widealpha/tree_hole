@@ -32,8 +32,9 @@ public class AuthConfiguration implements WebMvcConfigurer {
                 .excludePathPatterns("/article/uploadImage")
                 .excludePathPatterns("/article/allArticles");
     }
+
     @Bean
-    public FilterRegistrationBean<AuthFilter> paramFilter(){
+    public FilterRegistrationBean<AuthFilter> paramFilter() {
         FilterRegistrationBean<AuthFilter> bean = new FilterRegistrationBean<>();
         bean.setFilter(authFilter);
         bean.addUrlPatterns("/*");

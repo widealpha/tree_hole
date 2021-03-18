@@ -32,6 +32,7 @@ public class Result {
     public static Result error(String message, Object data) {
         return new Result(-1, message, data);
     }
+
     public static Result error(int code, String message) {
         return new Result(code, message, null);
     }
@@ -61,7 +62,7 @@ public class Result {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return JSONObject.toJSONString(this);
     }
 }

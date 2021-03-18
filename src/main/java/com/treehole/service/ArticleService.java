@@ -30,21 +30,21 @@ public class ArticleService {
         return Result.data(articleDao.getArticle(articleId));
     }
 
-    public Result getAllUnVerifyArticles(int userId){
-        if (userDao.isAdmin(userId) > 0){
+    public Result getAllUnVerifyArticles(int userId) {
+        if (userDao.isAdmin(userId) > 0) {
             return Result.data(articleDao.getAllUnVerifyArticle());
         }
         return Result.error("不是管理员");
     }
 
-    public Result verifyArticle(int userId, int id){
-        if (userDao.isAdmin(userId) > 0){
+    public Result verifyArticle(int userId, int id) {
+        if (userDao.isAdmin(userId) > 0) {
             return Result.data(articleDao.verifyArticle(id));
         }
         return Result.error("不是管理员");
     }
 
-    public Result verifyAllArticle(){
+    public Result verifyAllArticle() {
         return Result.data(articleDao.verifyAllArticle());
     }
 
@@ -52,21 +52,21 @@ public class ArticleService {
         return Result.data(articleDao.getArticlesByUserId(userId));
     }
 
-    public Result searchArticle(String key){
+    public Result searchArticle(String key) {
         return Result.data(articleDao.searchArticle(key));
     }
 
-    public Result getArticleByTime(int userId, int days){
+    public Result getArticleByTime(int userId, int days) {
         return Result.data(articleDao.getAllArticleByTime(userId, days));
     }
 
-    public Result getArticleByStartEnd(String startTime, String endTime){
+    public Result getArticleByStartEnd(String startTime, String endTime) {
         return Result.data(articleDao.getArticlesByStartEnd(startTime, endTime));
     }
 
     public Result isAuthor(int userId, int articleId) {
         Integer author = articleDao.getAuthor(articleId);
-        if (author == null){
+        if (author == null) {
             return Result.data(false);
         }
         return Result.data(String.valueOf(author == userId));
@@ -158,16 +158,16 @@ public class ArticleService {
         return Result.data(success);
     }
 
-    public Result hasLiked(int userId, List<Integer> articleIds){
+    public Result hasLiked(int userId, List<Integer> articleIds) {
         Map<Integer, Boolean> re = new HashMap<>();
         String likeList = userDao.getLikeArticles(userId);
         List<Integer> array = JSONArray.parseArray(likeList, Integer.class);
 
-        if (array == null || array.isEmpty()){
+        if (array == null || array.isEmpty()) {
             return Result.data("");
         }
-        for (Integer articleId: articleIds) {
-            if (array.contains(articleId)){
+        for (Integer articleId : articleIds) {
+            if (array.contains(articleId)) {
                 re.put(articleId, true);
             } else {
                 re.put(articleId, false);

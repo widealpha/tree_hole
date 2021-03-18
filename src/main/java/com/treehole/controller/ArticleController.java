@@ -14,69 +14,69 @@ import java.util.List;
 @RestController
 @ResponseBody
 @RequestMapping("/article")
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class ArticleController {
     @Autowired
     ArticleService articleService;
 
     @PostMapping("/allArticles")
-    Result allArticles(){
+    Result allArticles() {
         return articleService.allArticles();
     }
 
     @PostMapping("allUnVerifyArticle")
-    Result allUnVerifyArticle(@RequestParam int userId){
+    Result allUnVerifyArticle(@RequestParam int userId) {
         return articleService.getAllUnVerifyArticles(userId);
     }
 
     @PostMapping("verifyArticle")
-    Result verifyArticle(@RequestParam int userId, @RequestParam int id){
+    Result verifyArticle(@RequestParam int userId, @RequestParam int id) {
         return articleService.verifyArticle(userId, id);
     }
 
     @PostMapping("verifyAllArticle")
-    Result verifyAllArticle(@RequestParam int userId){
+    Result verifyAllArticle(@RequestParam int userId) {
         return articleService.verifyAllArticle();
     }
 
     @PostMapping("/article")
-    Result getArticle(@RequestParam int id){
+    Result getArticle(@RequestParam int id) {
         return articleService.getArticle(id);
     }
 
     @PostMapping("/myArticles")
-    Result getArticleByUserId(@RequestParam int userId){
+    Result getArticleByUserId(@RequestParam int userId) {
         return articleService.getArticlesByUserId(userId);
     }
 
     @PostMapping("/recentArticles")
-    Result getArticleByTime(@RequestParam int userId, @RequestParam int days){
+    Result getArticleByTime(@RequestParam int userId, @RequestParam int days) {
         return articleService.getArticleByTime(userId, days);
     }
 
     @PostMapping("filterArticles")
-    Result getArticleByStartEnd(@RequestParam int userId, @RequestParam String startTime, @RequestParam String endTime){
+    Result getArticleByStartEnd(@RequestParam int userId, @RequestParam String startTime, @RequestParam String endTime) {
         return articleService.getArticleByStartEnd(startTime, endTime);
     }
 
     @PostMapping("/searchArticles")
-    Result searchArticle(@RequestParam String key){
+    Result searchArticle(@RequestParam String key) {
         return articleService.searchArticle(key);
     }
 
     @PostMapping("/isAuthor")
-    Result isAuthor(@RequestParam int userId, @RequestParam int id){
+    Result isAuthor(@RequestParam int userId, @RequestParam int id) {
         return articleService.isAuthor(userId, id);
     }
 
     @PostMapping("/uploadImage")
-    Result uploadImage(@RequestParam MultipartFile image){
+    Result uploadImage(@RequestParam MultipartFile image) {
         String link = FileUtil.saveImage(image, "article");
         return Result.data(link);
     }
 
     @PostMapping("/uploadMusic")
-    Result uploadMusic(@RequestParam MultipartFile music){
+    Result uploadMusic(@RequestParam MultipartFile music) {
         String link = FileUtil.saveMusic(music, "music");
         return Result.data(link);
     }
@@ -88,7 +88,7 @@ public class ArticleController {
             @RequestParam(required = false) String title,
             @RequestParam String content,
             @RequestParam String emotion,
-            @RequestParam(required = false) String images){
+            @RequestParam(required = false) String images) {
         Article article = new Article();
         article.setTitle(title);
         article.setContent(content);
@@ -104,7 +104,7 @@ public class ArticleController {
             @RequestParam(required = false) String title,
             @RequestParam String content,
             @RequestParam String emotion,
-            @RequestParam(required = false) String images){
+            @RequestParam(required = false) String images) {
         Article article = new Article();
         article.setId(id);
         article.setTitle(title);
@@ -115,42 +115,41 @@ public class ArticleController {
     }
 
     @PostMapping("deleteArticle")
-    Result deleteArticle(@RequestParam int userId, @RequestParam int id){
+    Result deleteArticle(@RequestParam int userId, @RequestParam int id) {
         return articleService.deleteArticle(userId, id);
     }
 
     @PostMapping("/likeArticle")
     Result likeArticle(
             @RequestParam int userId,
-            @RequestParam int id){
+            @RequestParam int id) {
         return articleService.likeArticle(userId, id);
     }
 
     @PostMapping("cancelLikeArticle")
     Result cancelLikeArticle(
             @RequestParam int userId,
-            @RequestParam int id){
+            @RequestParam int id) {
         return articleService.cancelLikeArticle(userId, id);
     }
-
 
 
     @PostMapping("dislikeArticle")
     Result dislikeArticle(
             @RequestParam int userId,
-            @RequestParam int id){
+            @RequestParam int id) {
         return articleService.disLikeArticle(userId, id);
     }
 
     @PostMapping("cancelDislikeArticle")
     Result cancelDislikeArticle(
             @RequestParam int userId,
-            @RequestParam int id){
+            @RequestParam int id) {
         return articleService.cancelDislikeArticle(userId, id);
     }
 
     @PostMapping("hasLiked")
-    Result hasLiked(@RequestParam int userId, @RequestParam String articleIds){
+    Result hasLiked(@RequestParam int userId, @RequestParam String articleIds) {
         List<Integer> articleList = JSONArray.parseArray(articleIds, Integer.class);
         return articleService.hasLiked(userId, articleList);
     }

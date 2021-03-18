@@ -2,6 +2,7 @@ package com.treehole.dao;
 
 import com.treehole.domain.User;
 import org.apache.ibatis.annotations.*;
+
 import java.util.*;
 
 @Mapper
@@ -32,7 +33,7 @@ public interface UserDao {
     Integer changePassword(Integer id, String newPassword);
 
     @Update("UPDATE user_table SET password = #{newPassword} WHERE phone = #{phone} AND username = #{username}")
-    Integer forceChangePassword( String username, String phone, String newPassword);
+    Integer forceChangePassword(String username, String phone, String newPassword);
 
     @Delete("DELETE FROM user_table WHERE id = #{id}")
     Integer deleteUser(Integer id);

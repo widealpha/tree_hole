@@ -15,7 +15,7 @@ public class ReportController {
     ReportService reportService;
 
     @RequestMapping("reportArticle")
-    Result reportArticle(@RequestParam int userId, @RequestParam int articleId, @RequestParam String reason){
+    Result reportArticle(@RequestParam int userId, @RequestParam int articleId, @RequestParam String reason) {
         Report report = new Report();
         report.setReportAuthor(userId);
         report.setArticleId(articleId);
@@ -25,7 +25,7 @@ public class ReportController {
     }
 
     @RequestMapping("reportComment")
-    Result reportComment(@RequestParam int userId, @RequestParam int commentId, @RequestParam String reason){
+    Result reportComment(@RequestParam int userId, @RequestParam int commentId, @RequestParam String reason) {
         Report report = new Report();
         report.setReportAuthor(userId);
         report.setArticleId(commentId);
@@ -35,12 +35,12 @@ public class ReportController {
     }
 
     @RequestMapping("deleteReport")
-    Result deleteReport(@RequestParam int userId, @RequestParam int id){
+    Result deleteReport(@RequestParam int userId, @RequestParam int id) {
         return reportService.deleteReport(userId, id);
     }
 
     @RequestMapping("allReports")
-    Result allReports(@RequestParam int userId){
+    Result allReports(@RequestParam int userId) {
         return reportService.allReports(userId);
     }
 }

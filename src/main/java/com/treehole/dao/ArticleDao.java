@@ -2,7 +2,6 @@ package com.treehole.dao;
 
 import com.treehole.domain.Article;
 import org.apache.ibatis.annotations.*;
-import org.mybatis.spring.annotation.MapperScan;
 
 import java.util.List;
 
@@ -43,7 +42,7 @@ public interface ArticleDao {
 
     @Select("SELECT * FROM article_table WHERE author = #{userId} AND TO_DAYS(now()) - TO_DAYS(article_table.lastEditTime) <= #{days} AND verify = 1")
     List<Article> getAllArticleByTime(int userId, int days);
-    
+
     @Select("SELECT * FROM article_table WHERE TO_DAYS(lastEditTime) >= TO_DAYS(#{start}) AND TO_DAYS(lastEditTime) <= TO_DAYS(#{end}) AND verify = 1")
     List<Article> getArticlesByStartEnd(String start, String end);
 

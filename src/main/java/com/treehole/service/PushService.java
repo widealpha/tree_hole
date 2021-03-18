@@ -14,15 +14,15 @@ public class PushService {
     @Autowired
     private UserDao userDao;
 
-    public Result getAllChickenSouls(){
+    public Result getAllChickenSouls() {
         return Result.data(pushDao.getAllPush(0));
     }
 
-    public Result getAllMusicPush(){
+    public Result getAllMusicPush() {
         return Result.data(pushDao.getAllPush(1));
     }
 
-    public Result deletePush(int userId, int id){
+    public Result deletePush(int userId, int id) {
         Integer author = pushDao.getPush(id).getAuthor();
         if (userId != author && userDao.isAdmin(userId) == 0) {
             return Result.error("您无权删除");
@@ -30,17 +30,17 @@ public class PushService {
         return Result.data(pushDao.deletePush(id) > 0);
     }
 
-    public Result addChickenSoul(Push push){
+    public Result addChickenSoul(Push push) {
         push.setType(0);
         return Result.data(pushDao.addPush(push) > 0);
     }
 
-    public Result addMusicPush(Push push){
+    public Result addMusicPush(Push push) {
         push.setType(1);
         return Result.data(pushDao.addPush(push) > 0);
     }
 
-    public Result updatePush(int userId, Push push){
+    public Result updatePush(int userId, Push push) {
         Integer author = pushDao.getPush(push.getId()).getAuthor();
         if (userId != author && userDao.isAdmin(userId) == 0) {
             return Result.error("您无权更改");

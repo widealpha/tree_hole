@@ -14,19 +14,19 @@ public class ReportService {
     @Autowired
     UserDao userDao;
 
-    public Result addReport(Report report){
+    public Result addReport(Report report) {
         return Result.data(reportDao.addReport(report) > 0);
     }
 
-    public Result allReports(int userId){
-        if (userDao.isAdmin(userId) <= 0){
+    public Result allReports(int userId) {
+        if (userDao.isAdmin(userId) <= 0) {
             return Result.error("不是管理员");
         }
         return Result.data(reportDao.allReports());
     }
 
-    public Result deleteReport(int userId, int reportId){
-        if (userDao.isAdmin(userId) <= 0){
+    public Result deleteReport(int userId, int reportId) {
+        if (userDao.isAdmin(userId) <= 0) {
             return Result.error("不是管理员");
         }
         return Result.data(reportDao.deleteReport(reportId) > 0);

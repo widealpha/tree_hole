@@ -23,19 +23,19 @@ public class DiaryService {
         return Result.data(diaryDao.deleteDiary(userId, diaryId) > 0);
     }
 
-    public Result allDiary(int userId){
+    public Result allDiary(int userId) {
         return Result.data(diaryDao.allDiary(userId));
     }
 
-    public Result allImage(int userId){
+    public Result allImage(int userId) {
         return Result.data(diaryDao.allImage(userId));
     }
 
-    public Result allMusic(int userId){
+    public Result allMusic(int userId) {
         return Result.data(diaryDao.allMusic(userId));
     }
 
-    public Result all(int userId){
+    public Result all(int userId) {
         return Result.data(diaryDao.all(userId));
     }
 }

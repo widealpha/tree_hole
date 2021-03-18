@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @ResponseBody
 @RequestMapping("/push")
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class PushController {
     @Autowired
     PushService pushService;
@@ -21,7 +21,7 @@ public class PushController {
             @RequestParam int userId,
             @RequestParam String music,
             @RequestParam String title,
-            @RequestParam(required = false) String content){
+            @RequestParam(required = false) String content) {
         Push push = new Push();
         push.setAuthor(userId);
         push.setContent(content);
@@ -31,7 +31,7 @@ public class PushController {
     }
 
     @PostMapping("/uploadMusic")
-    Result uploadMusic(@RequestParam MultipartFile music){
+    Result uploadMusic(@RequestParam MultipartFile music) {
         String link = FileUtil.saveMusic(music, "music");
         return Result.data(link);
     }
@@ -41,7 +41,7 @@ public class PushController {
     Result pushChickenSoul(
             @RequestParam int userId,
             @RequestParam String title,
-            @RequestParam String content){
+            @RequestParam String content) {
         Push push = new Push();
         push.setAuthor(userId);
         push.setContent(content);
@@ -53,7 +53,7 @@ public class PushController {
     Result updatePush(
             @RequestParam int userId,
             @RequestParam String title,
-            @RequestParam(required = false) String content){
+            @RequestParam(required = false) String content) {
         Push push = new Push();
         push.setContent(content);
         push.setTitle(title);
@@ -61,17 +61,17 @@ public class PushController {
     }
 
     @PostMapping("allChickenSouls")
-    Result getAllChickenSoul(){
+    Result getAllChickenSoul() {
         return pushService.getAllChickenSouls();
     }
 
     @PostMapping("allPushMusics")
-    Result getAllMusicPush(){
+    Result getAllMusicPush() {
         return pushService.getAllMusicPush();
     }
 
     @PostMapping("deletePush")
-    Result deletePush(@RequestParam int userId, @RequestParam int id){
+    Result deletePush(@RequestParam int userId, @RequestParam int id) {
         return pushService.deletePush(userId, id);
     }
 

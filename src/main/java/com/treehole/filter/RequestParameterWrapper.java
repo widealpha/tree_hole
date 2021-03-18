@@ -27,8 +27,8 @@ public class RequestParameterWrapper extends HttpServletRequestWrapper {
 
     @Override
     public String getParameter(String name) {
-        String[]values = params.get(name);
-        if(values == null || values.length == 0) {
+        String[] values = params.get(name);
+        if (values == null || values.length == 0) {
             return null;
         }
         return values[0];

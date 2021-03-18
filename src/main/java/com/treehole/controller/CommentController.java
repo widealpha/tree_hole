@@ -12,38 +12,38 @@ import java.util.List;
 @RestController
 @ResponseBody
 @RequestMapping("/comment")
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class CommentController {
     @Autowired
     CommentService commentService;
 
     @PostMapping("getComment")
-    Result comment(@RequestParam Integer commentId){
+    Result comment(@RequestParam Integer commentId) {
         return commentService.getComment(commentId);
     }
 
     @PostMapping("allComments")
-    Result getAllComments(@RequestParam int userId){
+    Result getAllComments(@RequestParam int userId) {
         return commentService.getAllComments(userId);
     }
 
     @PostMapping("articleComments")
-    Result articleComments(@RequestParam Integer articleId){
+    Result articleComments(@RequestParam Integer articleId) {
         return commentService.getCommentsByArticleId(articleId);
     }
 
     @PostMapping("commentsOnComment")
-    Result commentOnComment(@RequestParam Integer commentId){
+    Result commentOnComment(@RequestParam Integer commentId) {
         return commentService.getCommentsByCommentId(commentId);
     }
 
     @PostMapping("myComments")
-    Result myComments(@RequestParam int userId){
+    Result myComments(@RequestParam int userId) {
         return commentService.myComments(userId);
     }
 
     @PostMapping("isAuthor")
-    Result isAuthor(@RequestParam int userId, @RequestParam Integer commentId){
+    Result isAuthor(@RequestParam int userId, @RequestParam Integer commentId) {
         return commentService.isAuthor(userId, commentId);
     }
 
@@ -52,12 +52,12 @@ public class CommentController {
             @RequestParam Integer userId,
             @RequestParam Integer articleId,
             @RequestParam(required = false) Integer commentId,
-            @RequestParam String content){
+            @RequestParam String content) {
         Comment comment = new Comment();
         comment.setAuthor(userId);
         comment.setArticleId(articleId);
         comment.setContent(content);
-        if (commentId == null){
+        if (commentId == null) {
             comment.setCommentId(0);
         } else {
             comment.setCommentId(commentId);
@@ -66,32 +66,32 @@ public class CommentController {
     }
 
     @PostMapping("deleteComment")
-    Result deleteComment(@RequestParam Integer userId, @RequestParam int commentId){
+    Result deleteComment(@RequestParam Integer userId, @RequestParam int commentId) {
         return commentService.deleteComment(userId, commentId);
     }
 
     @PostMapping("likeComment")
-    Result likeComment(@RequestParam Integer userId, @RequestParam Integer commentId){
+    Result likeComment(@RequestParam Integer userId, @RequestParam Integer commentId) {
         return commentService.likeComment(userId, commentId);
     }
 
     @PostMapping("dislikeComment")
-    Result dislikeComment(@RequestParam Integer userId, @RequestParam Integer commentId){
+    Result dislikeComment(@RequestParam Integer userId, @RequestParam Integer commentId) {
         return commentService.disLikeComment(userId, commentId);
     }
 
     @PostMapping("cancelLikeComment")
-    Result cancelLikeComment(@RequestParam Integer userId, @RequestParam Integer commentId){
+    Result cancelLikeComment(@RequestParam Integer userId, @RequestParam Integer commentId) {
         return commentService.cancelLikeComment(userId, commentId);
     }
 
     @PostMapping("cancelDislikeComment")
-    Result cancelDislikeComment(@RequestParam Integer userId, @RequestParam Integer commentId){
+    Result cancelDislikeComment(@RequestParam Integer userId, @RequestParam Integer commentId) {
         return commentService.cancelDislikeComment(userId, commentId);
     }
 
     @PostMapping("hasLiked")
-    Result hasLiked(@RequestParam int userId, @RequestParam String commentIds){
+    Result hasLiked(@RequestParam int userId, @RequestParam String commentIds) {
         List<Integer> commentList = JSONArray.parseArray(commentIds, Integer.class);
         return commentService.hasLiked(userId, commentList);
     }

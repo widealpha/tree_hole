@@ -12,17 +12,17 @@ public class FileUtil {
     private final static String HOST = "http://121.196.101.7/";
 
     @SuppressWarnings("all")
-    public static String saveImage(MultipartFile multipartFile, @Nullable String use){
-        if (multipartFile == null){
+    public static String saveImage(MultipartFile multipartFile, @Nullable String use) {
+        if (multipartFile == null) {
             return null;
         }
         String fileName = generatorFilename(null, "jpg");
         String path = "/home/share/";
-        if (use != null){
+        if (use != null) {
             path += use + "/";
         }
         File p = new File(path);
-        if (!p.exists()){
+        if (!p.exists()) {
             p.mkdirs();
         }
         File file = new File(path + fileName);
@@ -37,23 +37,23 @@ public class FileUtil {
     }
 
     @SuppressWarnings("all")
-    public static String saveMusic(MultipartFile multipartFile, @Nullable String use){
-        if (multipartFile == null){
+    public static String saveMusic(MultipartFile multipartFile, @Nullable String use) {
+        if (multipartFile == null) {
             return null;
         }
         String filename;
-        if (multipartFile.getOriginalFilename() != null){
+        if (multipartFile.getOriginalFilename() != null) {
             String[] names = multipartFile.getOriginalFilename().split("\\.");
             filename = generatorFilename(null, names[names.length - 1]);
         } else {
             filename = generatorFilename(null, "mp3");
         }
         String path = "/home/share/";
-        if (use != null && use.trim().length() > 0){
+        if (use != null && use.trim().length() > 0) {
             path += use + "/";
         }
         File p = new File(path);
-        if (!p.exists()){
+        if (!p.exists()) {
             p.mkdirs();
         }
         File file = new File(path + filename);
@@ -67,14 +67,14 @@ public class FileUtil {
         return use != null ? HOST + use + '/' + filename : HOST + filename;
     }
 
-    public static String generatorFilename(@Nullable String prefix,@Nullable String suffix){
+    public static String generatorFilename(@Nullable String prefix, @Nullable String suffix) {
         Date date = new Date();
         StringBuilder builder = new StringBuilder();
-        if (prefix != null){
+        if (prefix != null) {
             builder.append(prefix).append('-');
         }
         builder.append(date.getTime());
-        if (suffix != null){
+        if (suffix != null) {
             builder.append('.').append(suffix);
         }
         return builder.toString();
