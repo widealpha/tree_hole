@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Date;
 
 public class FileUtil {
-    private final static String HOST = "http://121.196.101.7/";
+    private final static String HOST = "http://widealpha.top/";
 
     @SuppressWarnings("all")
     public static String saveImage(MultipartFile multipartFile, @Nullable String use) {
